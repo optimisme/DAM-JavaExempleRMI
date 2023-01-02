@@ -1,6 +1,6 @@
-# Exemple Sockets #
+# Exemple de crides RMI #
 
-En aquest projecte hi ha exemples sockets UDP, TCP i WebSockets en Java
+En aquest projecte hi ha un exemple de com fer crides RMI per tal que un client demani a un servidor que resolgui funcions de manera remota
 
 ### Instruccions ###
 
