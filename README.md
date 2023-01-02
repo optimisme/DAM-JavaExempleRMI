@@ -21,11 +21,3 @@ A Windows Powershell:
 ```
 .\run.bat
 ```
-
-### Llicència ###
-
-Tenir en compte les llicències MIT de "WebSockets" i "slf4j":
-
-[WebSockets](https://github.com/TooTallNate/Java-WebSocket)
-
-[slf4j](https://www.slf4j.org/)
