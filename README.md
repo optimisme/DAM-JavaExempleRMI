@@ -1,6 +1,6 @@
 # Exemple de crides RMI #
 
-En aquest projecte hi ha un exemple de com fer crides RMI per tal que un client demani a un servidor que resolgui funcions de manera remota
+En aquest projecte hi ha un exemple de com fer crides RMI per tal que un client cridi funcions d'un servidor de manera remota
 
 ### Instruccions ###
 
