@@ -1,11 +1,28 @@
 rem run with: .\run.bat
 
 cls
-rm -r -force .\bin
-rm -r -force .\src\.*
-rm -r -force .\lib\javafx-windows\lib\.*
-mkdir bin
-xcopy .\assets .\bin\assets /E /I /Y
 
-javac -d .\bin\ .\src\*.java
-java -cp ".;.\\bin;.\\bin" Main
+rem Remove any existing Project.jar file
+del Project.jar
+
+rem Remove any existing .class files from the bin directory
+del /q bin\*.*
+
+rem Create the bin directory if it doesn't exist
+mkdir bin
+
+rem Copy the assets directory to the bin directory
+xcopy assets bin\assets /E /I /Y
+
+rem Compile the Java source files and place the .class files in the bin directory
+javac -d bin src\*.java
+
+rem Create the Project.jar file with the specified manifest file and the contents of the bin directory
+jar cfm Project.jar src\Manifest.txt -C bin .
+
+rem Remove any .class files from the bin directory
+del /q bin\*.*
+rmdir bin
+
+rem Run the Project.jar file
+java -jar Project.jar

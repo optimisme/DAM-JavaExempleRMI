@@ -1,23 +1,26 @@
 #!/bin/bash
 
-# Comprimir amb: folder=`basename "$PWD"` && zip -r ../$folder.zip . -x '**/.*' -x '**/__MACOSX' -x '*.zip'
+# Remove any existing Project.jar file
+rm Project.jar
 
-reset
+# Remove any existing .class files from the bin directory
 rm -f ./bin/*.* 
+
+# Create the bin directory if it doesn't exist
 mkdir -p ./bin
+
+# Copy the assets directory to the bin directory
 cp -r ./assets ./bin
 
-if [[ $OSTYPE == 'linux-gnu' ]]; then
-    javac -d ./bin/ ./src/*.java
-    java  -cp "./:./bin/" Main
-fi
+# Compile the Java source files and place the .class files in the bin directory
+javac -d ./bin/ ./src/*.java
 
-if [[ $OSTYPE == 'darwin'* ]] && [[ $(arch) == 'i386' ]]; then
-    javac -d ./bin/ ./src/*.java
-    java  -cp "./:./bin/" Main
-fi
+# Create the Project.jar file with the specified manifest file and the contents of the bin directory
+jar cfm Project.jar ./src/Manifest.txt -C bin .
 
-if [[ $OSTYPE == 'darwin'* ]] && [[ $(arch) == 'arm64' ]]; then
-    javac -d ./bin/ ./src/*.java
-    java  -cp "./:./bin/" Main
-fi
+# Remove any .class files from the bin directory
+rm -f ./bin/*.* 
+rmdir ./bin
+
+# Run the Project.jar file
+java -jar Project.jar
