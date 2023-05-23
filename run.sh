@@ -1,5 +1,7 @@
 #!/bin/bash
 
+reset
+
 # Remove any existing Project.jar file
 rm Project.jar
 
