@@ -3,7 +3,7 @@
 reset
 
 # Remove any existing Project.jar file
-rm Project.jar
+rm -rf ./release
 
 # Remove any existing .class files from the bin directory
 rm -rf ./bin
@@ -24,4 +24,6 @@ jar cfm ./release/Project.jar ./src/Manifest.txt -C bin .
 rm -rf ./bin
 
 # Run the Project.jar file
-java -jar ./release/Project.jar
+cd release
+java -jar Project.jar
+cd ..

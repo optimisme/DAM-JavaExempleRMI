@@ -25,4 +25,6 @@ del /q bin\*.*
 rmdir bin
 
 rem Run the Project.jar file
-java -jar release\Project.jar
+cd release
+java -jar Project.jar
+cd ..
