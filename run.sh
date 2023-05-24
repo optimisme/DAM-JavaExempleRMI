@@ -18,10 +18,10 @@ cp -r ./assets ./bin
 javac -d ./bin/ ./src/*.java
 
 # Create the Project.jar file with the specified manifest file and the contents of the bin directory
-jar cfm Project.jar ./src/Manifest.txt -C bin .
+jar cfm ./release/Project.jar ./src/Manifest.txt -C bin .
 
 # Remove any .class files from the bin directory
 rm -rf ./bin
 
 # Run the Project.jar file
-java -jar Project.jar
+java -jar ./release/Project.jar

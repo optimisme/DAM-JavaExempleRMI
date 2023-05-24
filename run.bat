@@ -18,11 +18,11 @@ rem Compile the Java source files and place the .class files in the bin director
 javac -d bin src\*.java
 
 rem Create the Project.jar file with the specified manifest file and the contents of the bin directory
-jar cfm Project.jar src\Manifest.txt -C bin .
+jar cfm release\Project.jar src\Manifest.txt -C bin .
 
 rem Remove any .class files from the bin directory
 del /q bin\*.*
 rmdir bin
 
 rem Run the Project.jar file
-java -jar Project.jar
+java -jar release\Project.jar
