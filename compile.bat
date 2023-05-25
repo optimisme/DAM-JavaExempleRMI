@@ -37,8 +37,9 @@ if not exist %folderRelease% mkdir %folderRelease%
 :: Move the Project.jar file to the release directory
 move %folderDevelopment%\Project.jar %folderRelease%\Project.jar
 
-:: Create the run.bat file
-(echo echo java -jar Project.jar) > %folderRelease%\run.bat
+:: Create the 'run.bat' file
+echo java -jar Project.jar > run.bat
+move run.bat %folderRelease%\run.bat
 
 :: Run the Project.jar file
 cd %folderRelease%
