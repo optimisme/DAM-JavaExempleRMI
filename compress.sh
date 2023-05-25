@@ -1,3 +1,3 @@
 #!/bin/bash
 
-folder=`basename "$PWD"` && zip -r ../$folder.zip . -x '**/.*' -x '**/__MACOSX' -x '*.zip'
+folder=`basename "$PWD"` && find . -path './.*' -o -path './Release/*' ! -name '.gitignore' -prune -o -print | zip -r ../$folder.zip -@ -x '**/__MACOSX' -x '*.zip'
