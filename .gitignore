@@ -27,4 +27,4 @@ Temporary Items
 bin/*
 
 # Ignore release folder
-release/*
+Release/*
