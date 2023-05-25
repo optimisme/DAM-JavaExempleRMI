@@ -47,5 +47,5 @@ mv run.sh ./$folderRelease/run.sh
 
 # Run the Project.jar file
 cd ./$folderRelease
-java -jar Project.jar
+./run.sh
 cd ..
