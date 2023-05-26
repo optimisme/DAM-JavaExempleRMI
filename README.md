@@ -21,3 +21,10 @@ A Windows Powershell:
 ```
 .\compile.bat
 ```
+
+Or, from Visual Studio Code:
+
+```
+"Terminal > Run task > Compile Project"
+
+```
