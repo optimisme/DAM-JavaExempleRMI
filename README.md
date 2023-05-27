@@ -19,7 +19,7 @@ A Linux i OSX:
 A Windows Powershell:
 
 ```
-.\build.bat
+.\build.ps1
 ```
 
 Or, from Visual Studio Code:
