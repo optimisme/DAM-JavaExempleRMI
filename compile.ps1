@@ -21,6 +21,7 @@ if (Test-Path -Path "./assets") {
 javac -d ./bin/ ./src/*.java
 
 # Create the Project.jar file with the specified manifest file and the contents of the bin directory
+$jarExePath = Get-ChildItem -Path C:\ -Recurse -Filter "jar.exe" -ErrorAction SilentlyContinue | Select-Object -First 1 -ExpandProperty FullName
 $manifestFile = "Manifest.txt"
 $jarFile = Join-Path -Path $folderRelease -ChildPath "Project.jar"
 $jarArgs = "cfm"
