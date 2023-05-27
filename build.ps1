@@ -24,7 +24,6 @@ javac -d ./bin/ ./src/*.java
 $jarExePath = Get-ChildItem -Path C:\ -Recurse -Filter "jar.exe" -ErrorAction SilentlyContinue | Select-Object -First 1 -ExpandProperty FullName
 & $jarExePath cfm ./Project.jar ./Manifest.txt -C bin .
 
-
 # Remove any .class files from the bin directory
 Remove-Item -Recurse -Force ./bin
 
