@@ -13,18 +13,18 @@ Després executar el client i comprovar com els càlculs obtenen resultat des de
 A Linux i OSX:
 
 ```
-./compile.sh
+./build.sh
 ```
 
 A Windows Powershell:
 
 ```
-.\compile.bat
+.\build.bat
 ```
 
 Or, from Visual Studio Code:
 
 ```
-"Terminal > Run task > Compile Project"
-
+"Terminal > Run task > Compile for UNIX"
+"Terminal > Run task > Compile for PowerShell"
 ```
