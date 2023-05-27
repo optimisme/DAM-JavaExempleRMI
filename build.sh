@@ -48,6 +48,7 @@ EOF
 # Fem l'arxiu executable
 chmod +x run.sh
 mv run.sh ./$folderRelease/run.sh
+mv run.ps1 ./$folderRelease/run.ps1
 
 # Run the Project.jar file
 cd ./$folderRelease
