@@ -15,7 +15,9 @@ rm -rf ./bin
 mkdir -p ./bin
 
 # Copy the assets directory to the bin directory
-cp -r ./assets ./bin
+if [ -d ./assets ]; then
+    cp -r ./assets ./bin
+fi
 
 # Compile the Java source files and place the .class files in the bin directory
 javac -d ./bin/ ./src/*.java
