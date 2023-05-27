@@ -22,15 +22,10 @@ javac -d ./bin/ ./src/*.java
 
 # Create the Project.jar file with the specified manifest file and the contents of the bin directory
 $jarExePath = Get-ChildItem -Path C:\ -Recurse -Filter "jar.exe" -ErrorAction SilentlyContinue | Select-Object -First 1 -ExpandProperty FullName
-$workingDirectory = (Convert-Path $folderDevelopment)
 $manifestFile = "Manifest.txt"
 $jarFile = Join-Path -Path $folderRelease -ChildPath "Project.jar"
-$jarArgs = "cfm"
-$jarArgs += " `"$jarFile`""
-$jarArgs += " `"$manifestFile`""
-$jarArgs += " -C bin ."
-Start-Process -FilePath $jarExePath -ArgumentList $jarArgs -Wait -WorkingDirectory $workingDirectory
-
+$jarArgs = @("cfm", "`"$jarFile`"", "`"$manifestFile`"", "-C", "bin", ".")
+Start-Process -FilePath $jarExePath -ArgumentList $jarArgs -Wait -WorkingDirectory $PWD
 
 # Remove any .class files from the bin directory
 Remove-Item -Recurse -Force ./bin
