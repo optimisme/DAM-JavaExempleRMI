@@ -32,7 +32,9 @@ Remove-Item -Recurse -Force ./bin
 Set-Location ..
 
 # Move the Project.jar file to the release directory
-Remove-Item -Recurse -Force ./$folderRelease
+if (Test-Path -Path "./$folderRelease") {
+    Remove-Item -Recurse -Force ./$folderRelease
+}
 New-Item -ItemType Directory -Force -Path ./$folderRelease | Out-Null
 Move-Item ./$folderDevelopment/Project.jar ./$folderRelease/Project.jar
 
