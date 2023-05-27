@@ -37,7 +37,11 @@ mv ./$folderDevelopment/Project.jar ./$folderRelease/Project.jar
 # Create the 'run.sh' file
 cat > run.sh << EOF
 #!/bin/bash
+java -jar Project.jar
+EOF
 
+# Create the 'run.ps1' file
+cat > run.ps1 << EOF
 java -jar Project.jar
 EOF
 
