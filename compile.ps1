@@ -30,7 +30,7 @@ Remove-Item -Recurse -Force ./bin
 
 # Get out of the development directory
 Set-Location ..
-<#
+
 # Move the Project.jar file to the release directory
 Remove-Item -Recurse -Force ./$folderRelease
 New-Item -ItemType Directory -Force -Path ./$folderRelease | Out-Null
@@ -51,4 +51,3 @@ java -jar Project.jar
 Set-Location ./$folderRelease
 ./run.ps1
 Set-Location ..
-#>
