@@ -20,18 +20,29 @@ if (Test-Path -Path "./assets") {
 # Compile the Java source files and place the .class files in the bin directory
 javac -d ./bin/ ./src/*.java
 
-# Create the Project.jar file with the specified manifest file and the contents of the bin directory
-$manifestFile = "Manifest.txt"
+# Create a temporary directory for the JAR contents
+$tempDir = [System.IO.Path]::Combine([System.IO.Path]::GetTempPath(), [System.IO.Path]::GetRandomFileName())
+New-Item -ItemType Directory -Force -Path $tempDir | Out-Null
+
+# Move the compiled class files to the temporary directory
+Move-Item -Path ./bin/* -Destination $tempDir
+
+# Create the JAR file using Java's JarOutputStream
 $jarFile = Join-Path -Path $folderRelease -ChildPath "Project.jar"
-$jarArgs = "cfm"
-$jarArgs += " $jarFile"
-$jarArgs += " $manifestFile"
-$jarArgs += " -C bin ."
+$manifestFile = "Manifest.txt"
+$jarOutputStream = New-Object -TypeName java.util.jar.JarOutputStream -ArgumentList (New-Object -TypeName java.io.FileOutputStream -ArgumentList $jarFile), (New-Object -TypeName java.util.jar.Manifest -ArgumentList (Get-Content $manifestFile))
+$files = Get-ChildItem -Path $tempDir -Recurse
+foreach ($file in $files) {
+    $relativePath = $file.FullName.Substring($tempDir.Length + 1)
+    $jarEntry = New-Object -TypeName java.util.jar.JarEntry -ArgumentList $relativePath
+    $jarOutputStream.PutNextEntry($jarEntry)
+    $fileContent = Get-Content -Path $file.FullName -Raw
+    $jarOutputStream.Write([System.Text.Encoding]::UTF8.GetBytes($fileContent), 0, $fileContent.Length)
+    $jarOutputStream.CloseEntry()
+}
 
-Start-Process -FilePath "jar" -ArgumentList $jarArgs -Wait
-
-# Remove any .class files from the bin directory
-Remove-Item -Recurse -Force ./bin
+# Clean up the temporary directory
+Remove-Item -Recurse -Force $tempDir
 
 # Get out of the development directory
 Set-Location ..
