@@ -5,26 +5,37 @@ $folderRelease = "Release"
 Set-Location $folderDevelopment
 
 # Remove any existing .class files from the bin directory
-Remove-Item -Recurse -Force ./bin
+if (Test-Path -Path "./bin") {
+    Remove-Item -Recurse -Force -Path "./bin"
+}
 
 # Create the bin directory if it doesn't exist
 New-Item -ItemType Directory -Force -Path ./bin | Out-Null
 
 # Copy the assets directory to the bin directory
-Copy-Item -Recurse -Force ./assets ./bin/assets
+if (Test-Path -Path "./assets") {
+    Copy-Item -Recurse -Force ./assets ./bin/assets
+}
 
 # Compile the Java source files and place the .class files in the bin directory
 javac -d ./bin/ ./src/*.java
 
 # Create the Project.jar file with the specified manifest file and the contents of the bin directory
-jar cfm ./Project.jar ./Manifest.txt -C bin .
+$manifestFile = "Manifest.txt"
+$jarFile = Join-Path -Path $folderRelease -ChildPath "Project.jar"
+$jarArgs = "cfm"
+$jarArgs += " $jarFile"
+$jarArgs += " $manifestFile"
+$jarArgs += " -C bin ."
+
+Start-Process -FilePath "jar" -ArgumentList $jarArgs -Wait
 
 # Remove any .class files from the bin directory
 Remove-Item -Recurse -Force ./bin
 
 # Get out of the development directory
 Set-Location ..
-
+<#
 # Move the Project.jar file to the release directory
 Remove-Item -Recurse -Force ./$folderRelease
 New-Item -ItemType Directory -Force -Path ./$folderRelease | Out-Null
@@ -45,3 +56,4 @@ java -jar Project.jar
 Set-Location ./$folderRelease
 ./run.ps1
 Set-Location ..
+#>
