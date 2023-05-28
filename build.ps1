@@ -90,11 +90,9 @@ if ($CLASSPATHX) {
     $CLASSPATHX = "-cp " + $CLASSPATHX
 }
 
-
-
-
 # Compile the Java source files and place the .class files in the bin directory
-javac -d ./bin/ ./src/*.java $CLASSPATHW $MODULEPATH
+$javacCommand = "javac -d ./bin/ ./src/*.java $CLASSPATHW $MODULEPATH"
+Invoke-Expression $javacCommand
 
 # Create the Project.jar file with the specified manifest file and the contents of the bin directory
 if (Get-Command jar -ErrorAction SilentlyContinue) {
@@ -142,15 +140,17 @@ if (Test-Path -Path ".\$folderDevelopment\*.xml" -PathType Leaf) {
 }
 
 # Add Project.jar to classpath
-if ($CLASSPATHW) {
-    $CLASSPATHW = $CLASSPATHW + ";Project.jar"
-} else {
-    $CLASSPATHW = "-cp Project.jar"
-}
+$CLASSPATHX = $CLASSPATHX -replace "-cp ", ""
 if ($CLASSPATHX) {
-    $CLASSPATHX = $CLASSPATHX + ":Project.jar"
+    $CLASSPATHX = "-cp `"$CLASSPATHX;Project.jar`""
 } else {
-    $CLASSPATHX = "-cp Project.jar"
+    $CLASSPATHX = "-cp `"Project.jar`""
+}
+$CLASSPATHW = $CLASSPATHW -replace "-cp ", ""
+if ($CLASSPATHW) {
+    $CLASSPATHW = "-cp `"$CLASSPATHW;Project.jar`""
+} else {
+    $CLASSPATHW = "-cp `"Project.jar`""
 }
 
 # Create the 'run.sh' and 'run.ps1' files
@@ -168,7 +168,6 @@ java $HIBERNATEW $CLASSPATHW Main
 MODULEPATH=""
 ICON=""
 if ls lib/javafx* 1> /dev/null 2>&1; then
-    isJavaFX=true
     if [[ `$OSTYPE == 'linux-gnu' ]]; then
         MODULEPATH=./lib/javafx-linux/lib
     fi
