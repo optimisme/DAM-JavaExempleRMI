@@ -43,9 +43,9 @@ if (Test-Path -Path "./icons") {
 }
 
 # Generate the CLASSPATHW by iterating over JAR files in the lib directory and its subdirectories
-$lib_dir = (Resolve-Path "lib").Path
 $jar_files = @()
 if (Test-Path -Path "./lib") {
+    $lib_dir = (Resolve-Path "lib").Path
     $jar_files = Get-ChildItem -Path $lib_dir -Filter "*.jar" -Recurse | ForEach-Object {
         if (-not $_.Name.Contains("javafx")) {
             ".\lib\" + $_.FullName.Replace($lib_dir + '\', '')
@@ -68,6 +68,7 @@ if ($CLASSPATHW) {
 # Generate the CLASSPATHX for UNIX
 $jar_files = @()
 if (Test-Path -Path "./lib") {
+    $lib_dir = (Resolve-Path "lib").Path
     if (-not $isJavaFX) {
         $jar_files = Get-ChildItem -Path $lib_dir -Filter "*.jar" -Recurse | ForEach-Object { "lib/" + $_.FullName.Replace($lib_dir + '\', '') }
     } else {
