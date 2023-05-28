@@ -79,7 +79,7 @@ if [ -n "$CLASSPATHW" ]; then
 fi
 
 # Compile the Java source files and place the .class files in the bin directory
-javac -d ./bin/ ./src/*.java $CLASSPATHX $MODULEPATH
+eval "javac -d ./bin/ ./src/*.java $CLASSPATHX $MODULEPATH"
 
 # Create the Project.jar file with the specified manifest file and the contents of the bin directory
 jar cfm ./Project.jar ./Manifest.txt -C bin .
