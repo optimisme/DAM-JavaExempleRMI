@@ -62,7 +62,7 @@ $CLASSPATHW = ($jar_files | ForEach-Object {
     } 
 }) -join ';'
 if ($CLASSPATHW) {
-    $CLASSPATHW = "-cp " + $CLASSPATHW
+    $CLASSPATHW = "-cp `"" + $CLASSPATHW + "`""
 }
 
 # Generate the CLASSPATHX for UNIX
@@ -89,7 +89,7 @@ $CLASSPATHX = ($jar_files | ForEach-Object {
     } 
 }) -join ':'
 if ($CLASSPATHX) {
-    $CLASSPATHX = "-cp " + $CLASSPATHX
+    $CLASSPATHX = "-cp `"" + $CLASSPATHX + "`""
 }
 
 # Compile the Java source files and place the .class files in the bin directory
@@ -142,15 +142,15 @@ if (Test-Path -Path ".\$folderDevelopment\*.xml" -PathType Leaf) {
 }
 
 # Add Project.jar to classpath
-$CLASSPATHX = $CLASSPATHX -replace "-cp ", ""
+$CLASSPATHX = $CLASSPATHX -replace "-cp `"", ""
 if ($CLASSPATHX) {
-    $CLASSPATHX = "-cp `"$CLASSPATHX;Project.jar`""
+    $CLASSPATHX = "-cp `"Project.jar:$CLASSPATHX"
 } else {
     $CLASSPATHX = "-cp `"Project.jar`""
 }
-$CLASSPATHW = $CLASSPATHW -replace "-cp ", ""
+$CLASSPATHW = $CLASSPATHW -replace "-cp `"", ""
 if ($CLASSPATHW) {
-    $CLASSPATHW = "-cp `"$CLASSPATHW;Project.jar`""
+    $CLASSPATHW = "-cp `"Project.jar;$CLASSPATHW"
 } else {
     $CLASSPATHW = "-cp `"Project.jar`""
 }
