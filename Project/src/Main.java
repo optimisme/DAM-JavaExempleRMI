@@ -21,8 +21,8 @@ public class Main {
             int opcio = Integer.valueOf(llegirLinia("Opció:"));
             
             switch (opcio) {
-                case 0: RemoteServer.main(args);     break;
-                case 1: RemoteClient.main(args);       break;
+                case 0: RemoteServer.main(args);    break;
+                case 1: RemoteClient.main(args);    break;
                 case 2: running = false;            break;
                 default: break;
             }
